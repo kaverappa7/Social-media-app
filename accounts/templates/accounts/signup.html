@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #0f0c0c;
+            padding: 20px;
+        }
+        .signup-container{
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding:20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h2{
+            text-align: center;
+            color: #f3ecec;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+        }
+
+        label{
+            margin-bottom: 5px;
+            color: #ffffff;
+            align-self: center;
+              
+        }
+        
+
+        input[type="text"],input[type="email"],input[type="password"],input[type="confirm password"]{
+            padding: 5px;
+            width: 220px;
+            margin-bottom: 15px;
+            border: 1px solid #856666;
+            border-radius: 4px;
+            font-size: 16px;
+            align-self: center;
+            
+        }
+
+        input[type="submit"]{
+            width: 100px;
+            padding: 10px;
+            background-color: #054113;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            align-self: center;
+
+        }
+
+        input[type="submit"]:hover{
+            background-color: #6f8d76;
+            
+        }
+
+        .error{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div> 
+        <h2>Create an Account</h2>
+        <form method="POST">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="error">
+                <p>There was a error with your submission:</p>
+                <ul>
+                    {% for field in form %}
+                    {% if field.errors %}
+                    <li>{{field.label }} :{{ field.error|striptags }}</li>
+                    {% endif %}
+                    {% endfor %}
+
+                </ul>
+            </div>
+            {% endif %}
+       
+            <label for="id_username">Username</label>
+            <input type="text" id="id_username" name="username" value="{{ form.username.value }}">
+
+            <label for="id_email">Email</label>
+            <input type="email" id="id_email" name="email" value="{{ form.email.value }}">
+
+            <label for="id_password1">Password</label>
+            <input type="password" id="id_password1" name="password1">
+
+            <label for="id_password1">Confirm Password</label>
+            <input type="password" id="id_password2" name="password2">
+
+            <label for="id_submit">Submit</label> 
+            <input type="submit" value="Sign up">
+         </form>
+
+    </div>
+</body>
+</html>
